@@ -31,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +41,20 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-        ),
+        child: Text('Should go scanners based on index'),
+      ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (value) {
+          setState(() {
+            currentPage = value;
+          });
+        },
+        selectedIndex: currentPage,
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.qr_code), label: 'QR'),
+          NavigationDestination(
+              icon: Icon(Icons.barcode_reader), label: 'Barcode')
+        ],
       ),
     );
   }
