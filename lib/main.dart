@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_scanner/screens/barcode_scanner.screen.dart';
+import 'package:mobile_scanner/screens/qr_scanner.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,8 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
-        child: Text('Should go scanners based on index'),
+      body: Center(
+        child: [
+          const QrScannerScreen(),
+          const BarcodeScannerScreen()
+        ][currentPage],
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) {
