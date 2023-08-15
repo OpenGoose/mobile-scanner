@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/screens/barcode_scanner.screen.dart';
-import 'package:mobile_scanner/screens/qr_scanner.screen.dart';
+import 'package:os_mobile_scanner/screens/barcode_scanner.screen.dart';
+import 'package:os_mobile_scanner/screens/qr_scanner.screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {

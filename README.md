@@ -1,4 +1,4 @@
-# mobile_scanner
+# os_mobile_scanner
 
 A new Flutter project.
 
