@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/screens/barcode_scanner.screen.dart';
 import 'package:mobile_scanner/screens/qr_scanner.screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +34,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentPage = 0;
+  int _currentPage = 0;
+
+  final Uri _sourceCodeUrl =
+      Uri.parse('https://github.com/OpenGoose/mobile-scanner');
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +45,27 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await launchUrl(_sourceCodeUrl);
+              },
+              icon: const Icon(Icons.code))
+        ],
       ),
       body: Center(
         child: [
           const QrScannerScreen(),
           const BarcodeScannerScreen()
-        ][currentPage],
+        ][_currentPage],
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) {
           setState(() {
-            currentPage = value;
+            _currentPage = value;
           });
         },
-        selectedIndex: currentPage,
+        selectedIndex: _currentPage,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.qr_code), label: 'QR'),
           NavigationDestination(
