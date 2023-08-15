@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -10,6 +11,8 @@ class ScannerScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final barcodesState = useState<List<Barcode>>([]);
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -47,12 +50,35 @@ class ScannerScreen extends HookWidget {
         ],
       ),
       body: MobileScanner(
-        // fit: BoxFit.contain,
         controller: cameraController,
         onDetect: (capture) {
-          final List<Barcode> barcodes = capture.barcodes;
-          for (final barcode in barcodes) {
-            debugPrint('Barcode found! ${barcode.rawValue}');
+          for (final barcode in capture.barcodes) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('${barcode.rawValue}'),
+              duration: const Duration(seconds: 5),
+              action: SnackBarAction(
+                label: 'Copy',
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: '${barcode.rawValue}'));
+                },
+              ),
+            ));
+          }
+
+          bool differ = false;
+          if (capture.barcodes.length == barcodesState.value.length) {
+            for (int i = 0; i < barcodesState.value.length; i++) {
+              if (barcodesState.value[i].rawValue !=
+                  capture.barcodes[i].rawValue) {
+                differ = true;
+                break;
+              }
+            }
+          } else {
+            differ = true;
+          }
+          if (differ) {
+            barcodesState.value = capture.barcodes;
           }
         },
       ),

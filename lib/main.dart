@@ -54,19 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: [ScannerScreen()][_currentPage],
       ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (value) {
-          setState(() {
-            _currentPage = value;
-          });
-        },
-        selectedIndex: _currentPage,
-        destinations: const [
-          NavigationDestination(
-              icon: Icon(Icons.barcode_reader), label: 'Scanner'),
-          NavigationDestination(icon: Icon(Icons.list), label: 'List'),
-        ],
-      ),
+      // bottomNavigationBar: NavigationBar(
+      //   onDestinationSelected: (value) {
+      //     setState(() {
+      //       _currentPage = value;
+      //     });
+      //   },
+      //   selectedIndex: _currentPage,
+      //   destinations: const [
+      //     NavigationDestination(
+      //         icon: Icon(Icons.barcode_reader), label: 'Scanner'),
+      //     NavigationDestination(icon: Icon(Icons.list), label: 'List'),
+      //   ],
+      // ),
     );
   }
 }
