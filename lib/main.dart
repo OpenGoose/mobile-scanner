@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:os_mobile_scanner/screens/barcode_scanner.screen.dart';
-import 'package:os_mobile_scanner/screens/qr_scanner.screen.dart';
+import 'package:os_mobile_scanner/screens/scanner.screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -53,10 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Center(
-        child: [
-          const QrScannerScreen(),
-          const BarcodeScannerScreen()
-        ][_currentPage],
+        child: [ScannerScreen()][_currentPage],
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) {
@@ -66,9 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         selectedIndex: _currentPage,
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.qr_code), label: 'QR'),
           NavigationDestination(
-              icon: Icon(Icons.barcode_reader), label: 'Barcode')
+              icon: Icon(Icons.barcode_reader), label: 'Scanner'),
+          NavigationDestination(icon: Icon(Icons.list), label: 'List'),
         ],
       ),
     );
